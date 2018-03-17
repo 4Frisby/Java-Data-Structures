@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.Stack;
 
 class SingleLinkedList {
@@ -15,8 +16,10 @@ class SingleLinkedList {
 		ll.addAtTail(5);
 		//ll.reverseList();
 		//ll.insertionSortList();
-		ll.reverseListWithStack();
+		//ll.reverseListWithStack();
+		ll.reverseListWithRecursion();
 		ll.printList();
+		
 	}
 
 	public SingleLinkedList(Object dat) {
@@ -81,6 +84,7 @@ class SingleLinkedList {
 	}
 
 	public static void reverseList() {
+		Long startTime = startTime();
 		Boolean stillHas = true;
 		Node currentNode = head.next;
 		Node prevNode = head;
@@ -99,9 +103,11 @@ class SingleLinkedList {
 			}
 
 		}
+		stopAndPrintExecutionTime(startTime);
 	}
 	
 	public static void reverseListWithStack() {
+		Long startTime = startTime();
 	    Node reverseHead;
 	    Stack<Node> s = new Stack<Node>();
 	    Node curr = head;
@@ -118,7 +124,28 @@ class SingleLinkedList {
 	    }
 	    revCurr.next = null;
 	    head = reverseHead;
+		stopAndPrintExecutionTime(startTime);
 	}
+	
+	public static void reverseListWithRecursion() { 
+		Long startTime = startTime();
+	    Node headN = head.next;
+	    head.next = null;
+	    reverseRecursive(head,headN);
+	    stopAndPrintExecutionTime(startTime);
+	}
+	
+	public static void reverseRecursive(Node curr,Node next) {
+	    if(next != null) {
+			Node childNext = next.next;
+			next.next = curr;
+		    reverseRecursive(next,childNext);
+	    }
+	    else
+	    	head = curr;
+	    
+	}
+	
 
 	public static void insertionSortList() {
 		sortedHead = null;
@@ -165,6 +192,17 @@ class SingleLinkedList {
 		return numNodes;
 	}
 
+	public static Long startTime() {
+		return System.nanoTime();
+	}
+	
+	public static void stopAndPrintExecutionTime(Long startTime) {
+	      long stopTime = System.nanoTime();
+	      long elapsedTime = stopTime - startTime;
+	      System.err.println("\nexecution time : "+  elapsedTime + "\n");
+	}
+	
+	
 	class Node {
 		// Declare class variables
 		private Node next;
