@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 class SingleLinkedList {
 	// Class variables for the Linked List
 	private static Node head;
@@ -11,8 +13,9 @@ class SingleLinkedList {
 		ll.addAtTail(10);
 		ll.addAtTail(29);
 		ll.addAtTail(5);
-		ll.reverseList();
+		//ll.reverseList();
 		//ll.insertionSortList();
+		ll.reverseListWithStack();
 		ll.printList();
 	}
 
@@ -96,6 +99,25 @@ class SingleLinkedList {
 			}
 
 		}
+	}
+	
+	public static void reverseListWithStack() {
+	    Node reverseHead;
+	    Stack<Node> s = new Stack<Node>();
+	    Node curr = head;
+	    while(curr != null){
+	        s.push(curr);
+	        curr = curr.next;
+	    }
+	    
+	    reverseHead = s.pop();
+	    Node revCurr = reverseHead;
+	    while(!s.isEmpty()) {
+	    	revCurr.next = s.pop();
+	    	revCurr = revCurr.next;
+	    }
+	    revCurr.next = null;
+	    head = reverseHead;
 	}
 
 	public static void insertionSortList() {
