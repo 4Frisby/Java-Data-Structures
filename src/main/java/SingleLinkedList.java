@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -188,6 +190,89 @@ class SingleLinkedList {
 		}
 	}
 
+	public static void removeDuplicateValues() {
+	    if(head==null || head.next==null) 
+	    	return;
+	    		
+	    Node root = head;
+	    Node curr = head;
+	    while(curr.next!=null){
+	       if(curr.data!=curr.next.data){
+	    	   curr = curr.next;
+	       }else{
+	    	   curr.next = curr.next.next;
+	       }
+	    }
+	    head = root;
+	}
+	
+	public static boolean hasCycle() {
+	    HashMap<Node,Boolean> nodeNext = new HashMap<Node,Boolean>();
+	    
+	    if(head == null || head.next == null)
+	        return false;
+
+	    Node curr = head.next;
+	    while(curr.next != null){
+	        if(nodeNext.get(curr) != null)
+	        	nodeNext.put(curr, true);
+	        else
+	        	return true;
+	        curr = curr.next;
+	    }
+	    return false;
+	}
+	
+	public static boolean floydCycleAlgo() {
+	    //floyd-cycle finding algo solution (better) 
+	    // one pointer goes one by one other pointer goes two by two if there is a loop they meet that element.
+
+	    if (head == null){
+	        return false;
+	    }
+
+	    Node slow = head;
+	    Node fast = head;
+
+	    while (fast != null && fast.next != null){
+	        slow = slow.next;
+	        fast = fast.next.next;
+
+	        if (slow == fast){
+	            return true;
+	        }
+	    }
+
+	    return false;
+	}
+
+	Object FindMergeNode(Node headA, Node headB) {
+		// Complete this function
+		// Do not write the main method.
+
+		ArrayList<Node> pointedList = new ArrayList<Node>();
+
+		Node curr = headA;
+		while (curr != null) {
+			pointedList.add(curr);
+			curr = curr.next;
+		}
+
+		curr = headB;
+		while (curr != null) {
+			if (pointedList.contains(curr))
+				return curr.data;
+			curr = curr.next;
+		}
+
+		return 0;
+
+	}
+	
+	
+	
+	
+	
 	public static int getSize() {
 		return numNodes;
 	}
