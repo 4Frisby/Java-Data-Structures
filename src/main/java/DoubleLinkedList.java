@@ -23,7 +23,7 @@ public class DoubleLinkedList<T> {
     
     
     public void addLast(T data) {
-    	Node newNode = new Node(data);
+        Node newNode = new Node(data);
         if (isEmpty()) {
             newNode.next = null;
             newNode.prev = null;
@@ -51,6 +51,36 @@ public class DoubleLinkedList<T> {
         System.out.println();
     }
 
+    public void SortedInsert(int data) {
+        Node n = new Node(data);
+        if(first == null) {
+            first = n;
+            return;
+        }
+            
+        
+        Node curr = first;
+        while(curr.next != null && (Integer)data >= (Integer)curr.next.data){
+            curr = curr.next;
+        }
+      
+        if(curr.next == null)
+        {
+            n.prev = curr;
+            n.next = null;
+            curr.next = n;
+        }
+        else
+        {
+            n.prev = curr;
+            n.next = curr.next;
+            curr.next.prev = n;
+            curr.next = n;
+        }
+
+    }
+    
+    
     public void removeFirst() {
         if (!isEmpty()) {
             Node temp = first;
@@ -83,15 +113,15 @@ public class DoubleLinkedList<T> {
     }
     
     public static void main(String[] args) {
-		
-    	DoubleLinkedList<Integer> ll = new DoubleLinkedList<Integer>();
-    	ll.addFirst(1);
-    	ll.addFirst(12);
-    	ll.addFirst(5);
-    	ll.addFirst(20);
-    	ll.displayList();
-    	
-	}
+        
+        DoubleLinkedList<Integer> ll = new DoubleLinkedList<Integer>();
+        ll.SortedInsert(1);
+        ll.SortedInsert(12);
+        ll.SortedInsert(5);
+        ll.SortedInsert(20);
+        ll.displayList();
+        
+    }
     
     
 }
