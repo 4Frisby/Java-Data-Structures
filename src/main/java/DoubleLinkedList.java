@@ -81,6 +81,26 @@ public class DoubleLinkedList<T> {
     }
     
     
+    public void reverseList(Node curr) {
+    	
+   	
+    	if(first == curr)
+    		last = curr;
+    	
+    	if(curr.next != null) {
+    		Node next = curr.next;
+    		curr.next = curr.prev;
+    		curr.prev = next;    		
+    		reverseList(next);
+    	}else {
+    		curr.next = curr.prev;
+    		curr.prev = null;
+    		first = curr;
+    	}
+    	
+    }
+    
+    
     public void removeFirst() {
         if (!isEmpty()) {
             Node temp = first;
@@ -119,6 +139,7 @@ public class DoubleLinkedList<T> {
         ll.SortedInsert(12);
         ll.SortedInsert(5);
         ll.SortedInsert(20);
+        ll.reverseList(ll.first);
         ll.displayList();
         
     }
